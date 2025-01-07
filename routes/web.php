@@ -13,11 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/home', function () {
+Route::get('/', function () {
     return 'home';
 });
 
-Route::get('/about', function () {  
+Route::get('/about', function () {
     return 'about';
 });
 
