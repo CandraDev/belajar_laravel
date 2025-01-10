@@ -2,32 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Siswa;
+use App\Models\Ppdb;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
-
-class SiswasController extends Controller
+class PpdbController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
     {
-        $siswas = Siswa::all();
-        $title = 'Delete User!';
+        $ppdb = Ppdb::all();
+        // dd($ppdb);
+        $title = 'Delete Student!';
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
-
-        return view('siswa.index', compact('siswas'));
+        return view('ppdb.index', compact('ppdb'));
     }
 
     /**
@@ -37,8 +30,7 @@ class SiswasController extends Controller
      */
     public function create()
     {
-
-        return view('siswa.create');
+        return view('ppdb.create');
     }
 
     /**
@@ -49,25 +41,20 @@ class SiswasController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nis' => 'required',
-            'nama' => 'required',
-            'kelas' => 'required',
+        $validatedData = $request->validate([
+            'nama_lengkap' => 'required|max:50',
             'jenis_kelamin' => 'required',
+            'agama' => 'required',
+            'alamat' => 'required',
+            'telepon' => 'required|max:15',
+            'asal_sekolah' => 'required|min:3|max:75',
         ]);
 
-        toast('Student has been registered', 'success');
-        Siswa::create($request->all());
+        Ppdb::create($validatedData);
 
-        // dd($request->all());
-
+        toast('Student has been registrated', 'success');
         Alert::success('Action Success!', 'Student has been registered.');
-
-        // $title = 'Delete User!';
-        // $text = "Are you sure you want to delete?";
-        // confirmDelete($title, $text);
-
-        return redirect()->route('siswa.index');
+        return redirect()->route('ppdb.index');
     }
 
     /**
@@ -78,9 +65,9 @@ class SiswasController extends Controller
      */
     public function show($id)
     {
-        $siswa = Siswa::findOrFail($id);
+        $siswa = Ppdb::findOrFail($id);
 
-        return view('siswa.show', compact('siswa'));
+        return view('ppdb.show', compact('siswa'));
     }
 
     /**
@@ -89,9 +76,11 @@ class SiswasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Siswa $siswa)
+    public function edit($id)
     {
-        return view('siswa.edit', compact('siswa'));
+        $siswa = Ppdb::findOrFail($id);
+
+        return view('ppdb.edit', compact('siswa'));
     }
 
     /**
@@ -101,23 +90,26 @@ class SiswasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Siswa $siswa)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'nis' => 'required',
-            'nama' => 'required',
-            'kelas' => 'required',
+            'nama_lengkap' => 'required|max:50',
             'jenis_kelamin' => 'required',
+            'agama' => 'required',
+            'alamat' => 'required',
+            'telepon' => 'required|max:15',
+            'asal_sekolah' => 'required|min:3|max:75',
         ]);
 
+
+
+        $siswa = Ppdb::findOrFail($id);
+
         $siswa->update($request->all());
-        toast('Student has been updated.', 'info');
 
-        Alert::success('Action Success!', 'Student has been updated.');
+        toast('Student data has been updated', 'info');
 
-
-        return redirect()->route('siswa.index')
-            ->with('success', 'Data siswa  berhasil diperbarui');
+        return redirect()->route('ppdb.index');
     }
 
     /**
@@ -126,14 +118,14 @@ class SiswasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Siswa $siswa)
+    public function destroy($id)
     {
+        $siswa = Ppdb::findOrFail($id);
         $siswa->delete();
 
-        toast('Data siswa  berhasil dihapus ', 'warning');
 
-
-        return redirect()->route('siswa.index')
-            ->with('success', 'Data siswa  berhasil dihapus');
+        toast('Student data has been deleted ', 'warning');
+        return redirect()->route('ppdb.index')
+            ->with('success', 'Student data has been deleted');
     }
 }

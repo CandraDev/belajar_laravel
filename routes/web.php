@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PpdbController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
@@ -36,4 +37,5 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('siswa', SiswasController::class);
+Route::resource('siswa', SiswasController::class)->middleware('auth');
+Route::resource('ppdb', PpdbController::class)->middleware('auth');

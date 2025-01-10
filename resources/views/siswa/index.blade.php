@@ -8,9 +8,7 @@
                     <div class="card-header">{{ __('Data Siswa') }}</div>
 
                     <div class="card-body">
-                        @if (session('success'))
-                            <p>{{ session('success') }}</p>
-                        @endif
+
 
                         <table class="table text-center">
                             <thead>
@@ -40,13 +38,9 @@
                                                         class="btn btn-warning">Edit</button></a>
                                                 <a href="{{ route('siswa.show', $siswa->id) }}"><button
                                                         class="btn btn-primary">Show</button></a>
-                                                <form action="{{ route('siswa.destroy', $siswa->id) }}" method="POST"
-                                                    style="display:inline;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger"
-                                                        onclick="return confirm('Anda Yakin?')">Delete</button>
-                                                </form>
+                                                <a href="{{ route('siswa.destroy', $siswa->id) }}" class="btn btn-danger"
+                                                    data-confirm-delete="true">Delete</a>
+
 
                                             </div>
                                         </td>
