@@ -17,42 +17,35 @@
                                 @endphp
                                 <tr>
                                     <th scope="col">No</th>
-                                    <th scope="col">Nama Lengkap</th>
-                                    <th scope="col">Jenis Kelamin</th>
-                                    <th scope="col">Agama</th>
-                                    <th scope="col">Alamat</th>
-                                    <th scope="col">Telepon</th>
-                                    <th scope="col">Asal Sekolah</th>
+                                    <th scope="col">Nama</th>
+                                    {{-- <th scope="col">No. Telp</th> --}}
                                     <th scope="col">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($ppdb as $siswa)
+                                @foreach ($pengguna as $user)
                                     <tr>
                                         <th scope="row">{{ $no++ }}</th>
-                                        <td>{{ $siswa->nama_lengkap }}</td>
-                                        <td>{{ $siswa->jenis_kelamin }}</td>
-                                        <td>{{ $siswa->agama }}</td>
-                                        <td>{{ $siswa->alamat }}</td>
-                                        <td>{{ $siswa->telepon }}</td>
-                                        <td>{{ $siswa->asal_sekolah }}</td>
+                                        <td>{{ $user->nama }}</td>
+                                        {{-- <td>{{ $user->telepon->nomor }}</td> --}}
                                         <td>
                                             <div class="display-flex align-items-center justify-content-center">
-                                                <div class="mb-2"><a href="{{ route('ppdb.edit', $siswa->id) }}"><button
+                                                <div class="mb-2"><a
+                                                        href="{{ route('pengguna.edit', $user->id) }}"><button
                                                             class="btn btn-warning">Edit</button></a></div>
                                                 <div class="mb-2">
-                                                    <a href="{{ route('ppdb.show', $siswa->id) }}"><button
+                                                    <a href="{{ route('pengguna.show', $user->id) }}"><button
                                                             class="btn btn-primary">Show</button></a>
                                                 </div>
                                                 <div class="mb-2">
-                                                    {{-- <form action="{{ route('ppdb.destroy', $siswa->id) }}" method="POST">
+                                                    {{-- <form action="{{ route('ppdb.destroy', $user->id) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger"
                                                             data-confirm-delete="true">Delete</button>
                                                     </form> --}}
 
-                                                    <a href="{{ route('ppdbgit.destroy', $siswa->id) }}"
+                                                    <a href="{{ route('pengguna.destroy', $user->id) }}"
                                                         class="btn btn-danger" data-confirm-delete="true">Delete</a>
                                                 </div>
 
@@ -63,7 +56,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <a href="{{ route('ppdb.create') }}">Add new siswa</a>
+                        <a href="{{ route('pengguna.create') }}">Add new user</a>
                     </div>
                 </div>
             </div>
