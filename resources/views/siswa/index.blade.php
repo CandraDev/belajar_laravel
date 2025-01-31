@@ -21,6 +21,7 @@
                                     <th scope="col">Nama</th>
                                     <th scope="col">Jenis Kelamin</th>
                                     <th scope="col">Kelas</th>
+                                    <th scope="col">Cover</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -32,6 +33,7 @@
                                         <td>{{ $siswa->nama }}</td>
                                         <td>{{ $siswa->jenis_kelamin }}</td>
                                         <td>{{ $siswa->kelas }}</td>
+                                        <td><img src="{{ asset('/images/siswa/' . $siswa->cover) }}" width="100"></td>
                                         <td>
                                             <div class="display-flex align-items-center justify-content-center">
                                                 <a href="{{ route('siswa.edit', $siswa->id) }}"><button

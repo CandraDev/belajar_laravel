@@ -49,23 +49,35 @@ class SiswasController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nis' => 'required',
-            'nama' => 'required',
-            'kelas' => 'required',
-            'jenis_kelamin' => 'required',
-        ]);
+        // Instansiasi model Student
+        $siswa = new Siswa;
 
+        // Tetapkan nilai ke atribut model
+        $siswa->nis = $request->nis;
+        $siswa->nama = $request->nama;
+        $siswa->kelas = $request->kelas;
+        $siswa->jenis_kelamin = $request->jenis_kelamin;
+
+        // Proses file cover jika ada
+        if ($request->hasFile('cover')) {
+            $img = $request->file('cover');
+            $name = rand(1000, 9999) . $img->getClientOriginalName();
+            $img->move('images/siswa', $name);
+
+            // Tetapkan nama file ke atribut cover
+            $siswa->cover = $name;
+        } else {
+            // Jika file cover tidak diunggah, beri nilai default atau null
+            $siswa->cover = null;
+        }
+
+        // Simpan data ke database
+        $siswa->save();
+
+        // Berikan notifikasi atau umpan balik
         toast('Student has been registered', 'success');
-        Siswa::create($request->all());
-
-        // dd($request->all());
 
         Alert::success('Action Success!', 'Student has been registered.');
-
-        // $title = 'Delete User!';
-        // $text = "Are you sure you want to delete?";
-        // confirmDelete($title, $text);
 
         return redirect()->route('siswa.index');
     }
@@ -101,16 +113,32 @@ class SiswasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Siswa $siswa)
+    public function update(Request $request, $id)
     {
-        $request->validate([
-            'nis' => 'required',
-            'nama' => 'required',
-            'kelas' => 'required',
-            'jenis_kelamin' => 'required',
-        ]);
+        $siswa = Siswa::findOrFail($id);
 
-        $siswa->update($request->all());
+        // Tetapkan nilai ke atribut model
+        $siswa->nis = $request->nis;
+        $siswa->nama = $request->nama;
+        $siswa->kelas = $request->kelas;
+        $siswa->jenis_kelamin = $request->jenis_kelamin;
+
+        // Proses file cover jika ada
+        if ($request->hasFile('cover')) {
+            $siswa->deleteImage();
+            $img = $request->file('cover');
+            $name = rand(1000, 9999) . $img->getClientOriginalName();
+            $img->move('images/siswa', $name);
+
+            // Tetapkan nama file ke atribut cover
+            $siswa->cover = $name;
+        } else {
+            // Jika file cover tidak diunggah, beri nilai default atau null
+            $siswa->cover = null;
+        }
+
+        // Simpan data ke database
+        $siswa->save();
         toast('Student has been updated.', 'info');
 
         Alert::success('Action Success!', 'Student has been updated.');

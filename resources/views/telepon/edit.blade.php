@@ -24,6 +24,17 @@
                                     </div>
                                 @enderror
                             </div>
+                            <div class="mb-3">
+                                <label for="telepon" class="form-label @error('telepon') is-invalid @enderror">Nomor
+                                    Telepon</label>
+                                <input type="phone" class="form-control" id="telepon" name="telepon"
+                                    placeholder="Masukan nama lengkap siswa...  " value="{{ $pengguna->telepon()->nomor }}">
+                                @error('telepon')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
                             <div class="mb-3 d-flex align-items-center justify-content-center ">
                                 <input type="submit" class="btn btn-primary w-100" value="Submit">
                             </div>

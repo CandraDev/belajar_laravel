@@ -36,6 +36,10 @@
                                     <option value="XI RPL 3">XI RPL 3</option>
                                 </select>
                             </div>
+                            <div class="mb-3">
+                                <label for="nama" class="form-label">Cover</label>
+                                <input type="file" class="form-control" id='cover' name="cover">
+                            </div>
                             <div class="mb-3 d-flex align-items-center justify-content-center ">
                                 <input type="submit" class="btn btn-primary w-100" value="Submit">
                             </div>

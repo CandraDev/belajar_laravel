@@ -23,7 +23,7 @@
                                     </div>
                                 @enderror
                             </div>
-                            {{-- <div class="mb-3">
+                            <div class="mb-3">
                                 <label for="telepon" class="form-label @error('telepon') is-invalid @enderror">Nomor
                                     Telepon</label>
                                 <input type="phone" class="form-control" id="telepon" name="telepon"
@@ -33,7 +33,7 @@
                                         {{ $message }}
                                     </div>
                                 @enderror
-                            </div> --}}
+                            </div>
                             <div class="mb-3 d-flex align-items-center justify-content-center ">
                                 <input type="submit" class="btn btn-primary w-100" value="Submit">
                             </div>

@@ -2,14 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Order;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Siswa extends Model
+class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nis', 'nama', 'kelas', 'jenis_kelamin'];
+    public $guarded = ['id'];
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
 
     public function deleteImage()
     {
